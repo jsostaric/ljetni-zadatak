@@ -1,5 +1,5 @@
-drop database if exists dndapp;
-create database dndapp default character set utf8;
+#drop database if exists dndapp;
+#create database dndapp default character set utf8;
 use dndapp;
 
 create table player(
