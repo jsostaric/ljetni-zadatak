@@ -71,7 +71,7 @@ distance int,
 dmg varchar(50)
 );
 
-#izmjena vanjskih ključeva iz tablica equipment, skill, stat i feat_and_tait tablica u nove, međutablice
+#izmjena vanjskih ključeva iz tablica equipment, skill i feat_and_tait tablica u nove, međutablice
 
 create table pc_skill(
 player_character 	int not null,
