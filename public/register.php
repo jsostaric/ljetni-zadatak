@@ -1,13 +1,9 @@
-<?php
-include_once '../config.php';
-?>
+<?php include_once '../config.php'; ?>
 
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 	<head>
-		<?php
-		include_once '../templates/head.php';
-		?>
+		<?php include_once '../templates/head.php'; ?>
 	</head>
 	<body>
 		
@@ -19,21 +15,20 @@ include_once '../config.php';
 				<p style="text-align: center;">Characters and Adventures at your hand.</p>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="large-12 columns">
 				<div class="row">
 					<div class="large-3 columns large-centered">
 						<div class="callout">
-							<form method="post" action="<?php $route; ?>auth.php">
+							<form method="post" action="<?php $route; ?>reg.php">
 								<label for="name">Name:</label>
 								<input type="" name="name" id="name" value="" placeholder="Enter Your Username"  />
 								<label for="password">Password:</label>
 								<input type="password" name="password" id="password" placeholder="Enter Your Password"  />
 								
-								<input class="alert button expanded" type="sumbit" name="submit" value="Login" />
+								<input class="button expanded" type="sumbit" name="submit" value="Login" />
 							</form>
-							
-						
 						
 						</div>
 					</div>
@@ -41,8 +36,6 @@ include_once '../config.php';
 			</div>
 		</div>
 		
-		<?php
-		include_once '../templates/scripts.php';
-		?>
+		<?php include_once '../templates/scripts.php'; ?>
 	</body>
 </html>

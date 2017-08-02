@@ -21,9 +21,9 @@
 				<div class="row">
 					<div class="large-3 columns large-centered">
 						<div class="callout">
-							<a href="#" class="alert button expanded">Log In</a>
+							<a href="<?php $route; ?>public/login.php" class="alert button expanded">Log In</a>
 							<p style="text-align: center;">or</p>
-							<a href="#" class="button expanded">Register</a>
+							<a href="<?php $route; ?>public/register.php" class="button expanded">Register</a>
 						
 						
 						</div>

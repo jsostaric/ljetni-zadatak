@@ -16,7 +16,7 @@ include_once '../../config.php';
 		<div class="row">
 			<div class="large-12 columns large-centered">
 				<h1 style="text-align: center;">TRUE SIGHT</h1>
-				<p style="text-align: center;">Characters and Adventures at your hand.</p>
+				<p style="text-align: center;">List of your chars and links to their sheet</p>
 			</div>
 		</div>
 		<div class="row">
