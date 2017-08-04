@@ -26,13 +26,17 @@ include_once '../config.php';
 						<div class="callout">
 							<form method="post" action="<?php $route; ?>auth.php">
 								<label for="name">Name:</label>
-								<input type="" name="name" id="name" value="" placeholder="Enter Your Username"  />
+								<input type="name" name="name" id="name" value="<?php echo isset($_POST["name"]) ? $_POST["name"] : ""; ?>" placeholder="Enter Your Username"  />
+								
 								<label for="password">Password:</label>
 								<input type="password" name="password" id="password" placeholder="Enter Your Password"  />
 								
-								<input class="alert button expanded" type="sumbit" name="submit" value="Login" />
+								<input type="submit" class="alert button expanded" value="Login" />
 							</form>
 							
+							<?php if(isset($_POST["fault"])) {
+								echo "Please enter name and password";
+							} ?>
 						
 						
 						</div>
