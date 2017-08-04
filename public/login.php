@@ -24,18 +24,18 @@ include_once '../config.php';
 				<div class="row">
 					<div class="large-3 columns large-centered">
 						<div class="callout">
-							<form method="post" action="<?php $route; ?>auth.php">
-								<label for="name">Name:</label>
-								<input type="name" name="name" id="name" value="<?php echo isset($_POST["name"]) ? $_POST["name"] : ""; ?>" placeholder="Enter Your Username"  />
-								
-								<label for="password">Password:</label>
-								<input type="password" name="password" id="password" placeholder="Enter Your Password"  />
-								
-								<input type="submit" class="alert button expanded" value="Login" />
-							</form>
-							
-							<?php if(isset($_POST["fault"])) {
-								echo "Please enter name and password";
+							<form method="post" action="<?php echo $route; ?>auth.php">
+					          	<label for="name">Name:</label>
+					          	<input type="text" name="name" id="name" placeholder="Enter your name" value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ""; ?>" />
+					          	
+					          	<label for="password">Password:</label>
+					          	<input type="password" name="password" id="password" placeholder="e" />
+					          	
+					          	<input class="button alert expanded" type="submit" name="submit" value="Submit" />
+				          		</form>
+				          		
+							<?php if(isset($_GET["fail"])) {
+								echo "Please enter name and password!";
 							} ?>
 						
 						
