@@ -3,7 +3,7 @@
 	<?php if(!isset($_SESSION["session"])): ?>
 	<li><a href="<?php echo $route; ?>index.php"><i class="fi-list"></i> <span>Home</span></a></li>
 	<?php else: ?>
-		<li><a href="<?php echo $route; ?>private/dashboard.php"><i class="fi-list"></i> <span>Home</span></a></li>
+		<li><a href="<?php echo $route; ?>private/dashboard.php"><i class="fi-list"></i> <span>Dashboard</span></a></li>
 	<?php endif;
 	
 	 if(isset($_SESSION["session"])): ?>
