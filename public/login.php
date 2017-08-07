@@ -34,9 +34,15 @@ include_once '../config.php';
 					          	<input class="button alert expanded" type="submit" name="submit" value="Submit" />
 				          		</form>
 				          		
-							<?php if(isset($_GET["fail"])) {
-								echo "Please enter name and password!";
-							} ?>
+							<?php if(isset($_GET["oops"])) {
+								echo "Wrong name or password!";
+							} 
+							
+							if(isset($_GET["success"])) {
+								echo "Registered!";
+							}
+							
+							?>
 						
 						
 						</div>

@@ -4,7 +4,7 @@ use dndapp;
 
 create table player(
 id 			int not null primary key auto_increment,
-user_name 	varchar(59) not null,
+username 	varchar(59) not null,
 password	char(32) not null,
 email 		varchar(50) not null
 );

@@ -24,7 +24,12 @@
 							<a href="<?php $route; ?>public/login.php" class="alert button expanded">Log In</a>
 							<p style="text-align: center;">or</p>
 							<a href="<?php $route; ?>public/register.php" class="button expanded">Register</a>
-						
+						<?php
+						if(isset($_GET["logout"])) {
+								echo "You successfully logged out!";
+							}  
+							?>
+							
 						
 						</div>
 					</div>

@@ -2,10 +2,19 @@
 
 <?php 
 
+
 if(isset($_POST["name"])) {
-	$izraz = $conn->prepare("INSERT INTO player(user_name, password, email) values(:user_name, md5(:password), :email)");
-	$uneseno = $izraz->execute($_POST);
+	try{
+	$stmt = $conn->prepare("INSERT INTO player(username, password, email) values(:name, md5(:pass), :mail)");
+	$insert = $stmt->execute($_POST);
+	
+	header("location: " . $route . "public/login.php?success");
+	} catch(PDOException $e) {
+		echo $e->getMessage();
+		
+	}
 }
+
  ?>
 
 <!doctype html>
@@ -30,14 +39,14 @@ if(isset($_POST["name"])) {
 					<div class="large-3 columns large-centered">
 						<div class="callout">
 							<form method="post">
-					          	<label for="name">Name:</label>
-					          	<input type="text" name="name" id="name" placeholder="Enter your name" value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ""; ?>" />
-					          	
-					          	<label for="email">Email:</label>
-					          	<input type="email" name="email" id="email" />
-					          	
+					          	<label for="username">Name:</label>
+					          	<input type="text" name="name" id="username" placeholder="Enter your name" value="" />
+					        					          	
 					          	<label for="password">Password:</label>
-					          	<input type="password" name="password" id="password" />
+					          	<input type="password" name="pass" id="password" />
+					        
+					        	<label for="email">Email:</label>
+					          	<input type="email" name="mail" id="email" />
 					          	
 					          	<input class="button expanded" type="submit" name="submit" value="Register" />
 				          		</form>
