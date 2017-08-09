@@ -17,7 +17,7 @@ $stmt->execute(array("username" => trim($_POST["name"]), "password"=>$_POST["pas
 // fetch object
 $user = $stmt->fetch(PDO::FETCH_OBJ);
 
-//if stmt  where user log successfuly or did not
+//if stmt  where user log successfully or did not
 if($user !=null) {
 	$_SESSION["session"] = $user;
 	header("location: " . $route . "private/dashboard.php");

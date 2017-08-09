@@ -1,5 +1,5 @@
 <?php
-include_once '../config.php';
+include_once '../config.php'; checkLogin();
 ?>
 
 <!doctype html>
@@ -15,8 +15,8 @@ include_once '../config.php';
 		
 		<div class="row">
 			<div class="large-12 columns large-centered">
-				<h1 style="text-align: center;">TRUE SIGHT</h1>
-				<h2>Your Dashboard</h2>
+				
+			
 			</div>
 		</div>
 		<div class="row">
@@ -26,7 +26,13 @@ include_once '../config.php';
 		</div>
 		
 		<?php
+		
 		include_once '../templates/scripts.php';
+		?>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/exporting.js"></script>
+		<?php 
+		include_once 'chartScript.php';
 		?>
 	</body>
 </html>

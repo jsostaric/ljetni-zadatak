@@ -42,6 +42,10 @@ include_once '../config.php';
 								echo "Registered!";
 							}
 							
+							if(isset($_GET["stop"])) {
+								echo "Please, log in first!";
+							}
+							
 							?>
 						
 						
