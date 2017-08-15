@@ -30,8 +30,36 @@ include_once '../../config.php'; checkLogin();
 								<th>Name:</th>
 								<td><?php echo $row->username; ?></td>
 						</tr>
+						
+						<tr>
 								<th>Email:</th>
 								<td><?php echo $row->email; ?></td>
+						</tr>
+						
+						<tr>
+								<th>Characters:</th>
+								<td><?php $query = "select count(a.id)
+													from pc a
+													inner join player_adventure b on a.id=b.pc
+													inner join player c on b.player = c.id
+													where c.id = :id;";
+										$stmt = $conn->prepare($query);
+										echo $stmt->execute(array("id"=> $_SESSION["session"]->id)); ?>
+							
+						</tr>
+						
+						<tr>
+								<th>Adventures:</th>
+								<td><?php $query = "select count(a.id)
+													from pc a
+													inner join player_adventure b on a.id=b.pc
+													inner join player c on b.player = c.id
+													where c.id = :id;";
+										$stmt = $conn->prepare($query);
+										echo $stmt->execute(array("id"=> $_SESSION["session"]->id)); ?>
+							
+						</tr>
+						
 						<tr>
 								<th>Action - </th>
 								<td>						

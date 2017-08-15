@@ -36,7 +36,7 @@ include_once '../../config.php'; checkLogin();
 						
 						<tbody>
 							<?php  
-							$query = "select c.id, a.name, a.race, a.class, a.level
+							$query = "select  a.name, a.race, a.class, a.level
 										from pc a
 										inner join player_adventure b on a.id=b.pc
 										inner join player c on b.player = c.id where c.id=:id";
