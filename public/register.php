@@ -3,22 +3,24 @@ include_once '../config.php';
 
 $err = array();
 
-if (isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["mail"])) {
-	if (trim($_POST["name"]) === "") {
-		$err["name"] = "PLease enter a name!";
+
+
+if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"])) {
+	if (trim($_POST["username"]) === "") {
+		$err["username"] = "Please enter a name!";
 	}
 
-	if ($_POST["pass"] === "") {
-		$err["pass"] = "Please enter a passwprd!";
+	if ($_POST["password"] === "") {
+		$err["password"] = "Please enter a password!";
 	}
 
-	if (trim($_POST["mail"]) === "") {
-		$err["mail"] = "Please enter an email address!";
+	if (trim($_POST["email"]) === "") {
+		$err["email"] = "Please enter an email address!";
 	}
 
 	if (count($err == 0)) {
 		try {
-			$stmt = $conn -> prepare("INSERT INTO player(username, password, email) values(:name, md5(:pass), :mail)");
+			$stmt = $conn -> prepare("INSERT INTO player(username, password, email) values(:username, md5(:password), :email)");
 			$insert = $stmt -> execute($_POST);
 
 			header("location: " . $route . "public/login.php?success");
@@ -59,13 +61,13 @@ if (isset($_POST["name"]) && isset($_POST["pass"]) && isset($_POST["mail"])) {
 						<div class="callout">
 							<form method="post">
 								<label for="username">Name:</label>
-								<input type="text" name="name" id="username" placeholder="Enter your name" value="<?php echo isset($_POST["name"]) ? $_POST["name"] : ""; ?>" />
+								<input type="text" name="username" id="username" placeholder="Enter your name" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : ""; ?>" />
 
 								<label for="password">Password:</label>
-								<input type="password" name="pass" id="password" />
+								<input type="password" name="password" id="password" />
 
 								<label for="email">Email:</label>
-								<input type="email" name="mail" id="email" />
+								<input type="email" name="email" id="email" />
 
 								<input class="button expanded" type="submit" name="submit" value="Register" />
 							</form>

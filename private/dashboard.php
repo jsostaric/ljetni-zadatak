@@ -31,8 +31,8 @@ include_once '../config.php'; checkLogin();
 		?>
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
-		<?php 
-		include_once 'chartScript.php';
-		?>
+		<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto">
+		<?php include_once 'chartScript.php'; ?>
+		</div>
 	</body>
 </html>

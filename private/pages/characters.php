@@ -30,14 +30,18 @@ include_once '../../config.php'; checkLogin();
 								<th>Race</th>
 								<th>Class</th>
 								<th>Level</th>
-								<th>Adventure</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						
 						<tbody>
 							<?php  
-							$stmt = $conn->prepare("Select * from player_character");
-							$stmt->execute();
+							$query = "select c.id, a.name, a.race, a.class, a.level
+										from pc a
+										inner join player_adventure b on a.id=b.pc
+										inner join player c on b.player = c.id where c.id=:id";
+							$stmt = $conn->prepare($query);
+							$stmt->execute(array("id"=> $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 							
 							foreach($result as $row):
@@ -48,7 +52,9 @@ include_once '../../config.php'; checkLogin();
 								<td><?php echo $row->race; ?></td>
 								<td><?php echo $row->class; ?></td>
 								<td><?php echo $row->level; ?></td>
-								<td><?php echo $row->player_adventure; ?></td>
+								<td>
+									<a href="chars.php?id=<?php echo $row->id; ?>">Show</a> | <a href="#">Update</a> | <a href="#">Delete</a>
+								</td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>	

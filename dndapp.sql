@@ -1,111 +1,266 @@
-#drop database if exists dndapp;
-#create database dndapp default character set utf8;
-use dndapp;
+-- phpMyAdmin SQL Dump
+-- version 3.5.8.2
+-- http://www.phpmyadmin.net
+--
+-- Host: sql306.byetcluster.com
+-- Generation Time: Jul 09, 2017 at 12:07 PM
+-- Server version: 5.6.35-81.0
+-- PHP Version: 5.3.3
 
-create table player(
-id 			int not null primary key auto_increment,
-username 	varchar(59) not null,
-password	char(32) not null,
-email 		varchar(50) not null
-);
-
-
-create table player_character(
-id 			int not null primary key auto_increment,
-player_adventure int not null,
-name 		varchar(50) not null,
-race 		varchar(50) not null,
-class 		varchar(50) not null,
-level 		int not null,
-background	varchar(50) not null,
-alignment	varchar(50),
-hd 			varchar(5),
-hp 			int,
-proficiency int
-);
-
-create table adventure(
-id 			int not null primary key auto_increment,
-name 		varchar(50) not null,
-dm 			int not null,
-synopsis 	text
-);
-
-create table player_adventure(
-id 			int not null primary key auto_increment,
-player 		int not null,
-adventure 	int not null
-);
-
-create table stat(
-id 					int not null primary key auto_increment,
-strength    int not null,
-dexterity    int not null,
-constitution    int not null,
-intelligence    int not null,
-wisdom    int not null,
-charisma    int not null,
-player_character int
-);
-
-create table skill(
-id int not null primary key auto_increment,
-name varchar(50),
-stat_link varchar(50),
-proficiency boolean,
-value int
-);
-
-create table feat_and_trait(
-id int not null primary key auto_increment,
-name varchar(50),
-description varchar(50)
-);
-
-create table equipment(
-id int not null primary key auto_increment,
-name varchar(50),
-type varchar(50),
-distance int,
-dmg varchar(50)
-);
-
-#izmjena vanjskih ključeva iz tablica equipment, skill i feat_and_tait tablica u nove, međutablice
-
-create table pc_skill(
-player_character 	int not null,
-skill 				int not null
-);
-
-create table pc_feat_and_trait(
-player_character 	int not null,
-feat_and_trait 		int not null
-);
-
-create table pc_equipment(
-player_character 	int not null,
-equipment 			int not null
-);
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-alter table player_character add foreign key(player_adventure) references player_adventure(id);
+--
+-- Database: `b7_20129419_dnd`
+--
 
-alter table adventure add foreign key(dm) references player(id);
+-- --------------------------------------------------------
 
-alter table player_adventure add foreign key(player) references player(id);
-alter table player_adventure add foreign key(adventure) references adventure(id);
+--
+-- Table structure for table `adventure`
+--
 
+CREATE TABLE IF NOT EXISTS `adventure` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `dm` int(11) NOT NULL,
+  `synopsis` text,
+  PRIMARY KEY (`id`),
+  KEY `dm` (`dm`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
-alter table pc_skill add foreign key(player_character) references player_character(id);
-alter table pc_skill add foreign key(skill) references skill(id);
+--
+-- Dumping data for table `adventure`
+--
 
-alter table stat add foreign key(player_character) references player_character(id);
+INSERT INTO `adventure` (`id`, `name`, `dm`, `synopsis`) VALUES
+(1, 'Testna avantura', 1, NULL),
+(2, 'Testna avantura', 1, NULL);
 
-alter table pc_feat_and_trait add foreign key(player_character) references player_character(id);
-alter table pc_feat_and_trait add foreign key(feat_and_trait) references feat_and_trait(id);
+-- --------------------------------------------------------
 
-alter table pc_equipment add foreign key(player_character) references player_character(id);
-alter table pc_equipment add foreign key(equipment) references equipment(id);
+--
+-- Table structure for table `equipment`
+--
 
+CREATE TABLE IF NOT EXISTS `equipment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `type` varchar(50) DEFAULT NULL,
+  `distance` int(11) DEFAULT NULL,
+  `dmg` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
+--
+-- Dumping data for table `equipment`
+--
+
+INSERT INTO `equipment` (`id`, `name`, `type`, `distance`, `dmg`) VALUES
+(1, 'Longsword', 'slashing', NULL, '1d8');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feat_and_trait`
+--
+
+CREATE TABLE IF NOT EXISTS `feat_and_trait` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pc_equipment`
+--
+
+CREATE TABLE IF NOT EXISTS `pc_equipment` (
+  `player_character` int(11) NOT NULL,
+  `equipment` int(11) NOT NULL,
+  KEY `player_character` (`player_character`),
+  KEY `equipment` (`equipment`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pc_equipment`
+--
+
+INSERT INTO `pc_equipment` (`player_character`, `equipment`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pc_feat_and_trait`
+--
+
+CREATE TABLE IF NOT EXISTS `pc_feat_and_trait` (
+  `player_character` int(11) NOT NULL,
+  `feat_and_trait` int(11) NOT NULL,
+  KEY `player_character` (`player_character`),
+  KEY `feat_and_trait` (`feat_and_trait`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pc_skill`
+--
+
+CREATE TABLE IF NOT EXISTS `pc_skill` (
+  `player_character` int(11) NOT NULL,
+  `skill` int(11) NOT NULL,
+  KEY `player_character` (`player_character`),
+  KEY `skill` (`skill`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pc_skill`
+--
+
+INSERT INTO `pc_skill` (`player_character`, `skill`) VALUES
+(1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pc_stat`
+--
+
+CREATE TABLE IF NOT EXISTS `pc_stat` (
+  `player_character` int(11) NOT NULL,
+  `stat` int(11) NOT NULL,
+  KEY `player_character` (`player_character`),
+  KEY `stat` (`stat`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pc_stat`
+--
+
+INSERT INTO `pc_stat` (`player_character`, `stat`) VALUES
+(1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player`
+--
+
+CREATE TABLE IF NOT EXISTS `player` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(59) NOT NULL,
+  `password` char(32) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `player`
+--
+
+INSERT INTO `player` (`id`, `user_name`, `password`, `name`, `email`) VALUES
+(1, 'jsostaric', 'pass123', 'Jurica', 'ime.prezime@netko.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_adventure`
+--
+
+CREATE TABLE IF NOT EXISTS `player_adventure` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player` int(11) NOT NULL,
+  `adventure` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `player` (`player`),
+  KEY `adventure` (`adventure`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `player_adventure`
+--
+
+INSERT INTO `player_adventure` (`id`, `player`, `adventure`) VALUES
+(1, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `player_character`
+--
+
+CREATE TABLE IF NOT EXISTS `pc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `race` varchar(50) NOT NULL,
+  `class` varchar(50) NOT NULL,
+  `level` int(11) NOT NULL,
+  `background` varchar(50) NOT NULL,
+  `alignment` varchar(50) DEFAULT NULL,
+  `hd` varchar(5) DEFAULT NULL,
+  `hp` int(11) DEFAULT NULL,
+  `proficiency_bonus` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `player_character`
+--
+
+INSERT INTO `player_character` (`id`, `name`, `race`, `class`, `level`, `background`, `alignment`, `hd`, `hp`, `proficiency_bonus`) VALUES
+(1, 1, 'Hooman', 'Human', 'Fighter', 1, 'Soldier', 'Chaotic Good', '1d10', 12, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `skill`
+--
+
+CREATE TABLE IF NOT EXISTS `skill` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `stat_link` varchar(50) DEFAULT NULL,
+  `proficiency` tinyint(1) DEFAULT NULL,
+  `value` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `skill`
+--
+
+INSERT INTO `skill` (`id`, `name`, `stat_link`, `proficiency`, `value`) VALUES
+(1, 'Athletics', 'Strength', 1, 5),
+(2, 'History', 'Intelligence', 1, 3),
+(3, 'Intimidation', 'Charisma', 1, 4),
+(4, 'Perception', 'Wisdom', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stat`
+--
+
+CREATE TABLE IF NOT EXISTS `stat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `value` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

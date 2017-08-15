@@ -39,7 +39,7 @@ include_once '../config.php';
 							} 
 							
 							if(isset($_GET["success"])) {
-								echo "Registered!";
+								echo "Registered! Try to log in.";
 							}
 							
 							if(isset($_GET["stop"])) {
