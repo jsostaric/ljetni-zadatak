@@ -14,7 +14,7 @@ if($_SERVER["HTTP_HOST"] == "localhost") {
 	$mysqlUser="edunova";
 	$mysqlPass="edunova";
 } else if($_SERVER["HTTP_HOST"] == "jsostaric.byethost7.com") {
-	$route = "/dndapp/";
+	$route = "/ljetniZadatak/";
 	$mysqlHost="sql306.byethost7.com";
 	$mysqlDB="b7_20129419_dnd";
 	$mysqlUser="b7_20129419";
