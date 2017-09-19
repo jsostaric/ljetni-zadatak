@@ -10,6 +10,8 @@
   <li><a href="<?php echo $route; ?>private/users/index.php"><i class="fi-list"></i> <span>Profile</span></a></li>
   <li><a href="<?php echo $route; ?>private/characters/index.php"><i class="fi-list"></i> <span>Characters</span></a></li>
   <li><a href="<?php echo $route; ?>private/adventures/index.php"><i class="fi-list"></i> <span>Adventures</span></a></li>
+  <li><a target="_blank" href="https://github.com/jsostaric/ljetni-zadatak"><i class="fi-list"></i> <span>GitHub</span></a></li>
+  <li><a href="<?php echo $route; ?>img/ERA.png"><i class="fi-list"></i> <span>Era</span></a></li>
   <?php endif; ?>
   <li><a href="<?php echo $route; ?>public/contact.php"><i class="fi-list"></i> <span>Contact</span></a></li>
   <?php if(isset($_SESSION["session"])): ?>
