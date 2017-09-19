@@ -1,6 +1,5 @@
 <?php
-include_once '../config.php';
-checkLogin();
+include_once '../config.php'; checkLogin();
 ?>
 
 <!doctype html>

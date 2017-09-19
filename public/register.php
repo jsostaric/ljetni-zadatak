@@ -1,5 +1,5 @@
 <?php
-include_once '../config.php';
+include_once '../config.php'; 
 
 $err = array();
 
@@ -17,15 +17,17 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
 	if (trim($_POST["email"]) === "") {
 		$err["email"] = "Please enter an email address!";
 	}
-
-	if (count($err == 0)) {
+	
+	if (count($err) == 0) {
+		
 		try {
-			$stmt = $conn -> prepare("INSERT INTO player(username, password, email) values(:username, md5(:password), :email)");
-			$insert = $stmt -> execute($_POST);
-
-			header("location: " . $route . "public/login.php?success");
+			$stmt = $conn->prepare("insert into player(username, password, email) values(:username, md5(:password), :email)");
+			$result = $stmt->execute($_POST);
+			header("location: " . $route . "index.php");
+			
 		} catch(PDOException $e) {
 			echo $e -> getMessage();
+			var_dump($conn->errorInfo());
 
 		}
 	}
@@ -59,6 +61,19 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
 				<div class="row">
 					<div class="large-3 columns large-centered">
 						<div class="callout">
+							<?php if(isset($err["username"])) {
+								echo $err["username"] . "<br>";
+							} 
+							
+							if(isset($err["password"])) {
+								echo $err["password"]. "<br>";
+							} 
+							
+							if(isset($err["email"])) {
+								echo $err["email"]. "<br>";
+							} 
+							?>
+							
 							<form method="post">
 								<label for="username">Name:</label>
 								<input type="text" name="username" id="username" placeholder="Enter your name" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : ""; ?>" />
@@ -67,9 +82,9 @@ if (isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["emai
 								<input type="password" name="password" id="password" />
 
 								<label for="email">Email:</label>
-								<input type="email" name="email" id="email" />
+								<input type="email" name="email" id="email" value="" />
 
-								<input class="button expanded" type="submit" name="submit" value="Register" />
+								<input class="button expanded" type="submit" value="Register" />
 							</form>
 
 						</div>

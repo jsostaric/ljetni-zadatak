@@ -18,7 +18,12 @@ include_once '../../config.php'; checkLogin();
 				<table>
 					<tbody>
 							<?php  
-							$query = "select * from player where id=:id";
+							$query = "select a.id, a.username, a.password, a.email, count(b.id) as pc 
+									 from player a 
+									 left join player_adventure b on a.id=b.player
+									 where a.id=:id
+									 group by a.id, a.username, a.password,a.email ";
+									 
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id" => $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -37,33 +42,42 @@ include_once '../../config.php'; checkLogin();
 						</tr>
 						
 						<tr>
+								<th>Password:</th>
+								<td> ****** | <a href="changePass.php?id=<?php echo $row->id; ?>">Change</a></td>
+						</tr>
+						
+						<tr>
 								<th>Characters:</th>
-								<td><?php $query = "select count(a.id)
-													from pc a
-													inner join player_adventure b on a.id=b.pc
-													inner join player c on b.player = c.id
-													where c.id = :id;";
+								<td><?php $query = "select count(b.pc)
+											from player a
+											inner join player_adventure b on a.id = b.player
+											where a.id = :id;";
 										$stmt = $conn->prepare($query);
-										echo $stmt->execute(array("id"=> $_SESSION["session"]->id)); ?>
+										$stmt->execute(array("id"=> $_SESSION["session"]->id));
+										echo $res = $stmt->fetchColumn(); ?>
 							
 						</tr>
 						
 						<tr>
 								<th>Adventures:</th>
 								<td><?php $query = "select count(a.id)
-													from pc a
-													inner join player_adventure b on a.id=b.pc
-													inner join player c on b.player = c.id
-													where c.id = :id;";
+													from adventure a
+													inner join player b on b.id = a.dm
+													where a.dm = :id;";
 										$stmt = $conn->prepare($query);
-										echo $stmt->execute(array("id"=> $_SESSION["session"]->id)); ?>
+										$stmt->execute(array("id"=> $_SESSION["session"]->id)); 
+										echo $result = $stmt->fetchColumn(); ?>
 							
 						</tr>
 						
 						<tr>
 								<th>Action - </th>
 								<td>						
-									<a href="#">Update</a> | <a href="#">Delete</a>
+									<a href="changeProfile.php?id=<?php echo $row->id; ?>">Update Profile</a> | <?php if($result === 0 || $res === 0): ?>
+											<a href="delete.php?id=<?php echo $row->id; ?>">Delete</a>
+											<?php	else:?> 
+												<a href="#" style="visibility: hidden">Delete</a>
+											<?php endif; ?>
 								</td>
 						</tr>	
 							<?php endforeach; ?>

@@ -7,9 +7,9 @@
 	<?php endif;
 	
 	 if(isset($_SESSION["session"])): ?>
-  <li><a href="<?php echo $route; ?>private/pages/profile.php"><i class="fi-list"></i> <span>Profile</span></a></li>
-  <li><a href="<?php echo $route; ?>private/pages/characters.php"><i class="fi-list"></i> <span>Characters</span></a></li>
-  <li><a href="<?php echo $route; ?>private/pages/adventures.php"><i class="fi-list"></i> <span>Adventures</span></a></li>
+  <li><a href="<?php echo $route; ?>private/users/index.php"><i class="fi-list"></i> <span>Profile</span></a></li>
+  <li><a href="<?php echo $route; ?>private/characters/index.php"><i class="fi-list"></i> <span>Characters</span></a></li>
+  <li><a href="<?php echo $route; ?>private/adventures/index.php"><i class="fi-list"></i> <span>Adventures</span></a></li>
   <?php endif; ?>
   <li><a href="<?php echo $route; ?>public/contact.php"><i class="fi-list"></i> <span>Contact</span></a></li>
   <?php if(isset($_SESSION["session"])): ?>

@@ -32,13 +32,13 @@ include_once '../../config.php'; checkLogin();
 						
 						<tbody>
 							<?php  
-							$query = "select  a.*
-										from pc a
-										inner join player_adventure b on a.id=b.pc
-										inner join player c on b.player = c.id where c.id=:id";
+							if(isset($_GET['id'])) {
+								$query = "select * from pc where id = :id;";
 							$stmt = $conn->prepare($query);
-							$stmt->execute(array("id"=> $_SESSION["session"]->id));
+							$stmt->execute(array("id"=> $_GET["id"]));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+							
+							}
 							
 							foreach($result as $row):
 								
@@ -67,7 +67,7 @@ include_once '../../config.php'; checkLogin();
 										from stat a 
 										inner join pc b on a.pc = b.id where a.pc=:id";
 							$stmt = $conn->prepare($query);
-							$stmt->execute(array("id"=> $_SESSION["session"]->id));
+							$stmt->execute(array("id"=> $_GET["id"]));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 							
 							foreach($result as $row):
