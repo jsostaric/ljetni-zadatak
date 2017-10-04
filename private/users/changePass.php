@@ -14,10 +14,12 @@ if(isset($_GET["id"])) {
 
 // if update triggered update db player table
 if(isset($_POST["change"])) {
-	$stmt = $conn->prepare("update player set password=md5(:password) where id=:id");
-	$stmt->execute(array("password"=>$_POST["password"], "id"=>$_POST["id"]));
-	
-	header("location: index.php");
+	if($_POST["password"] === $_POST["confirm"]){
+		$stmt = $conn->prepare("update player set password=md5(:password) where id=:id");
+		$stmt->execute(array("password"=>$_POST["password"], "id"=>$_POST["id"]));
+		
+		header("location: index.php");
+	}
 }
 
 
@@ -48,6 +50,9 @@ if(isset($_POST["change"])) {
 							<form method="post">
 								<label for="password">Password:</label>
 								<input type="password" name="password" id="password" />
+								
+								<label for="confirm">Confirm password:</label>
+								<input type="confirm" name="confirm" id="confirm" />
 								
 								<input class="button expanded" type="submit" name="change" value="Change" />
 								
