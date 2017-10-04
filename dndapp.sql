@@ -110,3 +110,23 @@ alter table pc_equipment add foreign key(pc) references pc(id);
 alter table pc_equipment add foreign key(equipment) references equipment(id);
 
 
+insert into player(username, password, email) 
+	values	("Jurica",md5("password"), "juraos1@yahoo.com"),
+			("Edunova",md5("e"), "edunova@gmail.com"),
+			("Đuro", md5("1234"), "djuro@gmail.com");
+
+insert into adventure(name, dm, synopsis) 
+	values	("Test adventure", 1,"Forming adventure"),
+			("Lost Mines Of Phandelver", 1, "Lorem ipsum"),
+			("Tmeple Of Elemental Evil", 1, "You are in the tavern..."),	
+        	("Out Of The Abyss", 1, "You are sitting in the tavern with your companions...");
+
+insert into pc(name, race, class, level, background, alignment, hd, hp, proficiency) 
+	values	("Bark", "Half-Orc", "Ranger", 3, "Outlander", "CG", "d10", 22, 2),
+			("Bender","Halfling","Monk", 1,"Acolyte","LG","1d8" ,10 ,2 ),
+			("Richard","Tiefling","Warlock", 1,"Hermit","LN","1d8" ,10 ,2 );
+			
+insert into  player_adventure(player, adventure, pc) 
+	values	(1,3,3),
+			(1, 1,1),
+			(2,1,2);

@@ -43,6 +43,7 @@ include_once '../../config.php'; checkLogin();
 							foreach($result as $row):
 								
 							 ?>
+							
 							<tr>
 								<td><?php echo $row->name; ?></td>
 								<td><?php echo $row->race; ?></td>
@@ -58,7 +59,7 @@ include_once '../../config.php'; checkLogin();
 						</tbody>	
 				</table>
 				
-				<div class="large-2">
+				<div class="large-5">
 				<table>
 						
 						<tbody>
@@ -73,29 +74,40 @@ include_once '../../config.php'; checkLogin();
 							foreach($result as $row):
 								
 							 ?>
+							  <tr>
+							 	<th></th>
+							 	<th>Ability Score</th>
+							 	<th>Modifier</th>
+							 </tr>
 							<tr>
 								<th>Strength</th>
 								<td><?php echo $row->strength; ?></td>
+								<td><?php echo calculateModifier($row->strength); ?></td>
 							</tr>
 							<tr>
 								<th>Dexterity</th>
 								<td><?php echo $row->dexterity; ?></td>
+								<td><?php echo calculateModifier($row->dexterity); ?></td>
 							</tr>
 							<tr>	
 								<th>Constitution</th>
 								<td><?php echo $row->constitution; ?></td>
+								<td><?php echo calculateModifier($row->constitution); ?></td>
 							</tr>
 							<tr>
 								<th>Intelligence</th>
 								<td><?php echo $row->intelligence; ?></td>
+								<td><?php echo calculateModifier($row->intelligence); ?></td>
 							</tr>
 							<tr>
 								<th>Wisdom</th>
 								<td><?php echo $row->wisdom; ?></td>
+								<td><?php echo calculateModifier($row->wisdom); ?></td>
 							</tr>
 							<tr>
 								<th>Charisma</th>
 								<td><?php echo $row->charisma; ?></td>
+								<td><?php echo calculateModifier($row->charisma); ?></td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>	

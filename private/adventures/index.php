@@ -16,7 +16,7 @@ include_once '../../config.php'; checkLogin();
 		<div class="row">
 			<div class="large-8 columns large-centered">
 				<div class="large-4 columns">
-					<a href="<?php echo $route; ?>/private/create.php" class="success button centered expanded">New Adventure</a> 
+					<a href="<?php echo $route; ?>private/adventures/create.php" class="success button centered expanded">New Adventure</a> 
 				</div>
 			</div>
 		</div>
@@ -24,27 +24,40 @@ include_once '../../config.php'; checkLogin();
 		<div class="row">
 			<div class="large-8 columns large-centered">
 				<table>
+					<h4>As Dungeon Master:</h4>
 						<thead>
 							<tr>
-								<th>Name</th>
+								<th>Title</th>
+								<th>Players</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						
 						<tbody>
 							<?php  
-							$query = "select *
-										from adventure where dm = :id;";
+							$query = "select * from adventure where dm = :id";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
-							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+							$asDM = $stmt->fetchAll(PDO::FETCH_OBJ);
 							
-							foreach($result as $row):
+							foreach($asDM as $row):
 								
 							 ?>
 							<tr>
 								
 								<td><?php echo $row->name; ?></td>
+								<?php  
+								$query="select  b.name, a.player, count(a.player) as numOfPlayers, a.player
+from player_adventure a
+inner join adventure b on a.adventure= b.id
+where a.adventure = :id";
+								$stmt = $conn->prepare($query);
+								$stmt->execute(array("id" => $_SESSION["session"]->id));
+								$numberOfPlayers = $stmt->fetchAll(PDO::FETCH_OBJ);
+								foreach($numberOfPlayers as $num):?>
+								<td><?php echo $num->player; ?></td>	
+								
+								<?php endforeach; ?>							
 								<td>
 									<a href="chars.php?id=<?php echo $row->id; ?>">Show</a> | <a href="#">Update</a> | <a href="#">Delete</a>
 								</td>

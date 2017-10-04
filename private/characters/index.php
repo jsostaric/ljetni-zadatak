@@ -16,7 +16,7 @@ include_once '../../config.php'; checkLogin();
 		<div class="row">
 			<div class="large-8 columns large-centered">
 				<div class="large-4 columns">
-					<a href="<?php echo $route; ?>/private/create.php" class="success button centered expanded">New Character</a> 
+					<a href="<?php echo $route; ?>private/characters/create.php" class="success button centered expanded">New Character</a> 
 				</div>
 			</div>
 		</div>
