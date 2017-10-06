@@ -39,7 +39,7 @@ include_once '../../config.php'; checkLogin();
 							$query = "select a.id,  a.name, a.race, a.class, a.level
 										from pc a
 										inner join player_adventure b on a.id=b.pc
-										inner join player c on b.player = c.id where c.id=:id";
+										where b.player=:id";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);

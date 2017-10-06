@@ -28,7 +28,6 @@ include_once '../../config.php'; checkLogin();
 						<thead>
 							<tr>
 								<th>Title</th>
-								<th>Players</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -38,28 +37,49 @@ include_once '../../config.php'; checkLogin();
 							$query = "select * from adventure where dm = :id";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
-							$asDM = $stmt->fetchAll(PDO::FETCH_OBJ);
+							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 							
-							foreach($asDM as $row):
+							foreach($result as $row):
 								
 							 ?>
 							<tr>
 								
 								<td><?php echo $row->name; ?></td>
-								<?php  
-								$query="select  b.name, a.player, count(a.player) as numOfPlayers, a.player
-from player_adventure a
-inner join adventure b on a.adventure= b.id
-where a.adventure = :id";
-								$stmt = $conn->prepare($query);
-								$stmt->execute(array("id" => $_SESSION["session"]->id));
-								$numberOfPlayers = $stmt->fetchAll(PDO::FETCH_OBJ);
-								foreach($numberOfPlayers as $num):?>
-								<td><?php echo $num->player; ?></td>	
-								
-								<?php endforeach; ?>							
 								<td>
-									<a href="chars.php?id=<?php echo $row->id; ?>">Show</a> | <a href="#">Update</a> | <a href="#">Delete</a>
+									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a> | <a href="editAdventure.php?id=<?php echo $row->id; ?>">Update</a> | <a href="#">Delete</a>
+								</td>
+							</tr>
+							<?php endforeach; ?>
+						</tbody>	
+				</table>
+					<hr />
+				<table>
+					<h4>As Player:</h4>
+						<thead>
+							<tr>
+								<th>Title</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+					
+						<tbody>
+							<?php  
+							$query = "select a.name, a.id
+									from adventure a
+									inner join player_adventure b on a.id = b.adventure
+									where b.player = :id";
+							$stmt = $conn->prepare($query);
+							$stmt->execute(array("id"=> $_SESSION["session"]->id));
+							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
+							
+							foreach($result as $row):
+								
+							 ?>
+							<tr>
+								
+								<td><?php echo $row->name; ?></td>
+								<td>
+									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a> | <a href="editAdventure.php?id=<?php echo $row->id; ?>">Update</a> | <a href="#">Delete</a>
 								</td>
 							</tr>
 							<?php endforeach; ?>
