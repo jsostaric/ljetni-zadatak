@@ -34,7 +34,10 @@ include_once '../../config.php'; checkLogin();
 						
 						<tbody>
 							<?php  
-							$query = "select * from adventure where dm = :id";
+							$query = "select a.id, a.name, a.dm, a.synopsis, b.pc
+									from adventure a 
+									left join player_adventure b on a.id = b.adventure
+									where dm = :id";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -46,7 +49,7 @@ include_once '../../config.php'; checkLogin();
 								
 								<td><?php echo $row->name; ?></td>
 								<td>
-									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a> | <a href="editAdventure.php?id=<?php echo $row->id; ?>">Update</a> | <a href="#">Delete</a>
+									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a> | <a href="edit.php?id=<?php echo $row->id; ?>">Update</a> | <?php if($row->pc == 0): ?><a href="delete.php?id=<?php echo $row->id; ?>">Delete</a><?php endif; ?>
 								</td>
 							</tr>
 							<?php endforeach; ?>
@@ -64,7 +67,7 @@ include_once '../../config.php'; checkLogin();
 					
 						<tbody>
 							<?php  
-							$query = "select a.name, a.id
+							$query = "select a.name, a.id, b.pc
 									from adventure a
 									inner join player_adventure b on a.id = b.adventure
 									where b.player = :id";
@@ -79,7 +82,7 @@ include_once '../../config.php'; checkLogin();
 								
 								<td><?php echo $row->name; ?></td>
 								<td>
-									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a> | <a href="editAdventure.php?id=<?php echo $row->id; ?>">Update</a> | <a href="#">Delete</a>
+									<a href="adventures.php?id=<?php echo $row->id; ?>">Show</a>
 								</td>
 							</tr>
 							<?php endforeach; ?>

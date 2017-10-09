@@ -72,7 +72,7 @@ include_once '../../config.php'; checkLogin();
 							
 						</textarea>
 						<?php endforeach; ?>
-						<a href="editAdventure.php?id=<?php echo $row->id; ?>" class= "success button expanded">Update</a>
+						<a href="edit.php?id=<?php echo $row->id; ?>" class= "success button expanded">Update</a>
 						
 					</div>
 				</div>
