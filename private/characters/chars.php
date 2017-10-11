@@ -33,7 +33,7 @@ include_once '../../config.php'; checkLogin();
 						<tbody>
 							<?php  
 							if(isset($_GET['id'])) {
-								$query = "select * from pc where id = :id;";
+								$query = "select * from pc where id = :id";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_GET["id"]));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
