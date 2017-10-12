@@ -1,6 +1,6 @@
-#drop database if exists dndapp;
-#create database dndapp default character set utf8;
-#use dndapp;
+drop database if exists dndapp;
+create database dndapp default character set utf8;
+use dndapp;
 
 create table player(
 id 			int not null primary key auto_increment,
@@ -67,7 +67,8 @@ id int not null primary key auto_increment,
 name varchar(50),
 type varchar(50),
 distance int,
-dmg varchar(50)
+dmg varchar(50),
+ac int
 );
 
 #izmjena vanjskih ključeva iz tablica equipment, skill i feat_and_tait tablica u nove, međutablice
@@ -130,3 +131,32 @@ insert into  player_adventure(player, adventure, pc)
 	values	(1,3,3),
 			(1, 1,1),
 			(2,1,2);
+			
+insert into stat(strength,dexterity, constitution, intelligence, wisdom, charisma, pc) 
+	values (15,17,13,12,15,7,1),
+    (8,15,14,13,10,16,2),
+    (8,17,14,10,14,12,3);
+    
+insert into equipment(name, type, distance, dmg, ac)
+	values("Longbow", "P",60, "1d8",null),
+		("Greataxe", "S", 0, "1d12", null),
+        ("Dagger", "P", 20, "1d4", null),
+        ("Leather Armor", "A", 0, "", 11),
+        ("Studded Leather", "A", 0, "", 12),
+        ("Shortsword", "P", 0, "1d6", null),
+        ("Unarmed", "B", 0, "1d4", null),
+        ("Dart", "P", 20, "1d4", null),
+        ("Healing potion", "H", 0, "2d4 + 2", null);
+        
+insert into pc_equipment(pc, equipment)
+	values(1,1),
+		(1,2),
+        (1,3),
+        (1,4),
+        (3,3),
+        (3,5),
+        (3,9),
+        (2,6),
+        (2,7),
+        (2,8);
+    

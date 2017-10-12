@@ -1,0 +1,3 @@
+cd c:\xampp\mysql\bin
+mysql -uedunova -pedunova --default_character_set=utf8 < "C:\xampp\htdocs\ljetni-zadatak\dndapp.sql"
+

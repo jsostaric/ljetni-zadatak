@@ -53,7 +53,7 @@ include_once '../../config.php'; checkLogin();
 								<td><?php echo $row->class; ?></td>
 								<td><?php echo $row->level; ?></td>
 								<td>
-									<a href="chars.php?id=<?php echo $row->id; ?>">Show</a> | <a href="#">Update</a> | <a href="#">Delete</a>
+									<a href="chars.php?id=<?php echo $row->id; ?>">Show</a> | <a href="edit.php?id=<?php echo $row->id; ?>">Update</a> | <a href="delete.php?id=<?php echo $row->id; ?>">Delete</a>
 								</td>
 							</tr>
 							<?php endforeach; ?>

@@ -18,8 +18,6 @@ include_once '../config.php';
 			<div class="large-12 columns large-centered">
 				<h1 style="text-align: center;">TRUE SIGHT</h1>
 				<p style="text-align: center;">Characters and Adventures at your hand.</p>
-				<p>username: Jurica</p>
-				<p>password: password</p>
 			</div>
 		</div>
 		<div class="row">
@@ -29,10 +27,10 @@ include_once '../config.php';
 						<div class="callout">
 							<form method="post" action="<?php echo $route; ?>auth.php">
 					          	<label for="name">Name:</label>
-					          	<input type="text" name="name" id="name" placeholder="Enter your name" value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ""; ?>" />
+					          	<input type="text" name="name" id="name" placeholder="Enter your name" value="jurica" />
 					          	
 					          	<label for="password">Password:</label>
-					          	<input type="password" name="password" id="password" placeholder="e" />
+					          	<input type="password" name="password" id="password" value="password" />
 					          	
 					          	<input class="button alert expanded" type="submit" name="submit" value="Submit" />
 				          		</form>
