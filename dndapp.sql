@@ -2,6 +2,10 @@ drop database if exists dndapp;
 create database dndapp default character set utf8;
 use dndapp;
 
+#utf 8 on byethost
+alter database default character set utf8;
+
+
 create table player(
 id 			int not null primary key auto_increment,
 username 	varchar(59) not null,
@@ -48,18 +52,11 @@ charisma    int not null,
 pc 			int not null
 );
 
-create table skill(
-id int not null primary key auto_increment,
-name varchar(50),
-stat_link varchar(50),
-proficiency boolean,
-value int
-);
 
 create table feat_and_trait(
 id int not null primary key auto_increment,
 name varchar(50),
-description varchar(50)
+description text
 );
 
 create table equipment(
@@ -72,11 +69,6 @@ ac int
 );
 
 #izmjena vanjskih ključeva iz tablica equipment, skill i feat_and_tait tablica u nove, međutablice
-
-create table pc_skill(
-pc 	int not null,
-skill 				int not null
-);
 
 create table pc_feat_and_trait(
 pc 	int not null,
@@ -97,10 +89,6 @@ alter table adventure add foreign key(dm) references player(id);
 alter table player_adventure add foreign key(player) references player(id);
 alter table player_adventure add foreign key(adventure) references adventure(id);
 alter table player_adventure add foreign key(pc) references pc(id);
-
-
-alter table pc_skill add foreign key(pc) references pc(id);
-alter table pc_skill add foreign key(skill) references skill(id);
 
 alter table stat add foreign key(pc) references pc(id);
 
@@ -141,12 +129,24 @@ insert into equipment(name, type, distance, dmg, ac)
 	values("Longbow", "P",60, "1d8",null),
 		("Greataxe", "S", 0, "1d12", null),
         ("Dagger", "P", 20, "1d4", null),
-        ("Leather Armor", "A", 0, "", 11),
-        ("Studded Leather", "A", 0, "", 12),
+        ("Leather Armor", "A", 0, null, 11),
+        ("Studded Leather", "A", 0, null, 12),
         ("Shortsword", "P", 0, "1d6", null),
         ("Unarmed", "B", 0, "1d4", null),
         ("Dart", "P", 20, "1d4", null),
-        ("Healing potion", "H", 0, "2d4 + 2", null);
+        ("Healing potion", "H", 0, "2d4 + 2", null),
+        ("Rapier", "P", 0,"1d8",null ),
+       	("Heavy Crossbow", "P", 100,"1d6",null ),
+       	("Longsword", "S", 0,"1d8",null ),
+       	("Pike", "P", 10,"1d10",null ),
+       	("Javelin", "P", 30,"1d6",null ),
+       	("Chainmail", "A", 0, null, 16),
+       	("Shield", "A", 0,null,2),
+       	("Maul", "B", 0,"2d6",null ),
+	    ("Halberd", "S", 10,"1d10",null ),
+	    ("Spear", "P", 20,"1d6",null ),
+	    ("Warhammer", "B", 0,"1d8",null ),
+	    ("Handaxe", "S", 0,"1d6",null );
         
 insert into pc_equipment(pc, equipment)
 	values(1,1),
@@ -159,4 +159,15 @@ insert into pc_equipment(pc, equipment)
         (2,6),
         (2,7),
         (2,8);
+        
+insert into feat_and_trait(name, description)
+		values("Darkvision","can see 60 ft in the dark"),
+        ("Fey Ancestry","Immune to Charmed and Sleep effects"),
+        ("Poison resistance","Racial trait"),
+        ("Spellcasting","Ability to cast spells"),
+        ("Natural Explorer - Forest","An hour in forest makes you familiar with it and can easily find tracks and forage for food"),
+        ("Favored Enemy - Dragon","You can feel presence of dragon one mile from you or 6 miles if in favored terrain"),
+        ("Relentless Endurance","If reduced to 0 hit points but not killed outright, you can drop to 1 hit point instead. You can't use this feature again until you finish a long rest."),
+        ("Second Wind","On your turn you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.");        
+
     

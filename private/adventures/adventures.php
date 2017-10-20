@@ -1,14 +1,9 @@
-<?php
-include_once '../../config.php'; checkLogin();
-
-?>
+<?php include_once '../../config.php'; checkLogin(); ?>
 
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 	<head>
-		<?php
-		include_once '../../templates/head.php';
-		?>
+		<?php include_once '../../templates/head.php';	?>
 	</head>
 	<body>
 		
@@ -58,7 +53,8 @@ include_once '../../config.php'; checkLogin();
 					
 					
 					<div class="large-6 columns callout">
-						<?php $query = "select * from adventure where id = :id";
+						<?php $query = "select a.* from adventure a
+						inner join player b on a.dm = b.id where a.id = :id";
 						$stmt = $conn->prepare($query);
 						$stmt->execute(array("id" => $_GET["id"]));
 						$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -74,8 +70,13 @@ include_once '../../config.php'; checkLogin();
 							
 							
 						</textarea>
-						<?php endforeach; ?>
+						<?php endforeach; 
+						
+						if($row->dm == $_SESSION["session"]->id):
+						?>
 						<a href="edit.php?id=<?php echo $row->id; ?>" class= "success button expanded">Update</a>
+						<?php endif; ?>
+						<a href="index.php" class= "alert button expanded">Back</a>
 						
 					</div>
 				</div>

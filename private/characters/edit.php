@@ -11,17 +11,65 @@ if(isset($_GET["id"])) {
 //making changes
 if(isset($_POST["submit"])) {
 	
+	$conn->beginTransaction();
+	
+	$stmt = $conn->prepare("update pc set name=:name, race=:race, class=:class, level=:level, background=:background, alignment=:alignment, hd=:hd, hp=:hp, proficiency=:proficiency where id=:id");
+	$stmt->execute(array(
+		"name" 			=> $_POST["name"],
+		"race" 			=> $_POST["race"],
+		"class" 		=> $_POST["class"],
+		"level" 		=> $_POST["level"],
+		"background" 	=> $_POST["background"],
+		"alignment" 	=> $_POST["alignment"],
+		"hd" 			=> $_POST["hd"],
+		"hp" 			=> $_POST["hp"],
+		"proficiency" 	=> $_POST["proficiency"],
+		"id"			=> $_POST["id"]	
+	));	
+	
+	$stmt = $conn->prepare("update stat set strength=:str, dexterity=:dex, constitution=:con, intelligence=:int, wisdom=:wis, charisma=:cha where pc=:pc");
+	$stmt->execute(array(
+		"str" 	=> $_POST["str"],
+		"dex" 	=> $_POST["dex"],
+		"con" 	=> $_POST["con"],
+		"int" 	=> $_POST["int"],
+		"wis" 	=> $_POST["wis"],
+		"cha" 	=> $_POST["cha"],
+		"pc"	=> $_POST["id"]
+	));
 	
 	
-	header("location: chars.php?id=" . $entity->id);
+	
+	
+	$conn->commit();
+	
+	header("location: index.php");
 }
 
-//canceling and deleting creation of new character
+//canceling and deleting creation of new character - works
 if(isset($_POST["cancel"])) {
 	if($_POST["name"] == "") {
-		$query = "delete from pc where id = :id";
-		$stmt = $conn->prepare($query);
+		
+		$conn->beginTransaction();
+		
+		$stmt=$conn->prepare("select id from stat where pc=:pc"); //select stat id connected to pc
+		$stmt->execute(array("pc" => $_POST["id"]));
+		$statId = $stmt->fetchColumn(); //store value of stat id
+				
+		$stmt=$conn->prepare("delete from stat where id=:id" ); //delete stat row
+		$stmt->execute(array("id" => $statId));
+		
+		$stmt=$conn->prepare("select id from player_adventure where pc = :pc"); // query to find id in player_adventure table
+		$stmt->execute(array("pc" => $_POST["id"]));
+		$linkId = $stmt->fetchColumn(); //store it in variable
+		
+		$stmt= $conn->prepare("delete from player_adventure where id = :id"); 
+		$stmt->execute(array("id" => $linkId));
+		
+		$stmt = $conn->prepare("delete from pc where id = :id");
 		$stmt->execute(array("id" => $_POST["id"]));
+		
+		$conn->commit();
 	}
 	
 	header("Location: index.php" );
