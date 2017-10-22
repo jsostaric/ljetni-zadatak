@@ -116,7 +116,7 @@ if(isset($_POST["cancel"])) {
 			        
 			    }
 				}).data( "ui-autocomplete" )._renderItem = function( ul, objekt ) {
-			      return $( "<a>" + objekt.name + "</a>" )
+			      return $( "<li><a>" + objekt.name + "</a>" )
 			        .appendTo( ul );
 		    }
 		    $("#intoDb").click(function(){

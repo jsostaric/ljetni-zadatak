@@ -1,9 +1,9 @@
-drop database if exists dndapp;
-create database dndapp default character set utf8;
-use dndapp;
+#drop database if exists dndapp;
+#create database dndapp default character set utf8;
+#use dndapp;
 
 #utf 8 on byethost
-#alter database default character set utf8;
+alter database default character set utf8;
 
 
 create table player(
