@@ -27,6 +27,8 @@ if(isset($_POST["submit"])) {
 		"id"			=> $_POST["id"]	
 	));	
 	
+	
+	
 	$stmt = $conn->prepare("update stat set strength=:str, dexterity=:dex, constitution=:con, intelligence=:int, wisdom=:wis, charisma=:cha where pc=:pc");
 	$stmt->execute(array(
 		"str" 	=> $_POST["str"],
@@ -43,7 +45,7 @@ if(isset($_POST["submit"])) {
 	
 	$conn->commit();
 	
-	header("location: index.php");
+	header("location: chars.php?id="  . $entity->id);
 }
 
 //canceling and deleting creation of new character - works
@@ -143,16 +145,15 @@ if(isset($_POST["cancel"])) {
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
 							
 							foreach($result as $row):
-								
-							 ?>
+							?>
 							 
 							<tr>
 								<th>Strength</th>
 								<td><input type="text" name="str" value="<?php echo $row->strength; ?>" /></td>
 								<td><?php echo calculateModifier($row->strength); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> 
-									<?php echo calculateModifier($row->strength); ?>
+								<td><input type="checkbox" name="isProf[]" id="p1" value="1" /> 
+								 		<?php echo calculateModifier($row->strength); ?>
 								</td>
 							</tr>
 							<tr>
@@ -160,35 +161,35 @@ if(isset($_POST["cancel"])) {
 								<td><input type="text" name="dex" value="<?php echo $row->dexterity; ?>" /></td>
 								<td><?php echo calculateModifier($row->dexterity); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> <?php echo calculateModifier($row->dexterity); ?></td>
+								<td><input type="checkbox" name="proff[]" id="p2" value="2" /> <?php echo calculateModifier($row->dexterity); ?></td>
 							</tr>
 							<tr>	
 								<th>Constitution</th>
 								<td><input type="text" name="con" id="class" value="<?php echo $row->constitution; ?>" /></td>
 								<td><?php echo calculateModifier($row->constitution); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> <?php echo calculateModifier($row->constitution); ?></td>
+								<td><input type="checkbox" name="proff[]" id="p3" value="3" /> <?php echo calculateModifier($row->constitution); ?></td>
 							</tr>
 							<tr>
 								<th>Intelligence</th>
 								<td><input type="text" name="int" value="<?php echo $row->intelligence; ?>" /></td>
 								<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> <?php echo calculateModifier($row->intelligence); ?></td>
+								<td><input type="checkbox" name="proff[]" id="p4" value="4" /> <?php echo calculateModifier($row->intelligence); ?></td>
 							</tr>
 							<tr>
 								<th>Wisdom</th>
 								<td><input type="text" name="wis" value="<?php echo $row->wisdom; ?>" /></td>
 								<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> <?php echo calculateModifier($row->wisdom); ?></td>
+								<td><input type="checkbox" name="proff[]" id="p5" value="5" /> <?php echo calculateModifier($row->wisdom); ?></td>
 							</tr>
 							<tr>
 								<th>Charisma</th>
 								<td><input type="text" name="cha" value="<?php echo $row->charisma; ?>" /></td>
 								<td><?php echo calculateModifier($row->charisma); ?></td>
 								<td></td>
-								<td><input type="checkbox" name="proff"  /> <?php echo calculateModifier($row->charisma); ?></td>
+								<td><input type="checkbox" name="proff[]" id="p6" value="6" /> <?php echo calculateModifier($row->charisma); ?></td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>	
@@ -217,103 +218,103 @@ if(isset($_POST["cancel"])) {
 							 </tr>
 							 </thead>
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p7" value="7" /> </td>
 									<td><?php echo calculateModifier($row->dexterity); ?></td>
 								<th>Acrobatics<span style="color: grey;">(Dex)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p8" value="8" /> </td>
 									<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<th>Animal Handling<span style="color: grey;">(Wis)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p9" value="9" /> </td>
 									<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<th>Arcana<span style="color: grey;">(Int)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p10" value="10"  /> </td>
 									<td><?php echo calculateModifier($row->strength); ?></td>
 								<th>Athletics<span style="color: grey;">(Str)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p11" value="11" /> </td>
 									<td><?php echo calculateModifier($row->charisma); ?></td>
 								<th>Deception<span style="color: grey;">(Cha)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p12" value="12" /> </td>
 									<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<th>History<span style="color: grey;">(Int)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p13" value="13" /> </td>
 									<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<th>Insight<span style="color: grey;">(Wis)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p14" value="14" /> </td>
 									<td><?php echo calculateModifier($row->charisma); ?></td>
 								<th>Intimidation<span style="color: grey;">(Cha)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p15" value="15" /> </td>
 									<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<th>Investigation<span style="color: grey;">(Int)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p16" value="16" /> </td>
 									<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<th>Medicine<span style="color: grey;">(Wis)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p17" value="17" /> </td>
 									<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<th>Nature<span style="color: grey;">(Int)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p18" value="18" /> </td>
 									<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<th>Perception<span style="color: grey;">(Wis)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p19" value="19" /> </td>
 									<td><?php echo calculateModifier($row->charisma); ?></td>
 								<th>Performance<span style="color: grey;">(Cha)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p20" value="20" /> </td>
 									<td><?php echo calculateModifier($row->charisma); ?></td>
 								<th>Persuasion<span style="color: grey;">(Cha)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p21" value="21" /> </td>
 									<td><?php echo calculateModifier($row->intelligence); ?></td>
 								<th>Religion<span style="color: grey;">(Int)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p22" value="22" /> </td>
 									<td><?php echo calculateModifier($row->dexterity); ?></td>
 								<th>Stealth<span style="color: grey;">(Dex)</span></th>
 							</tr>
 							
 							<tr>
-								<td><input type="checkbox" name="proff"  /> </td>
+								<td><input type="checkbox" name="proff[]" id="p23" value="23" /> </td>
 									<td><?php echo calculateModifier($row->wisdom); ?></td>
 								<th>Survival<span style="color: grey;">(Wis)</span></th>
 							</tr>

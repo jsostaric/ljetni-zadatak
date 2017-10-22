@@ -3,7 +3,7 @@ create database dndapp default character set utf8;
 use dndapp;
 
 #utf 8 on byethost
-alter database default character set utf8;
+#alter database default character set utf8;
 
 
 create table player(
@@ -77,7 +77,8 @@ feat_and_trait 		int not null
 
 create table pc_equipment(
 pc 	int not null,
-equipment 			int not null
+equipment 			int not null,
+quantity int default 1
 );
 
 

@@ -1,7 +1,8 @@
 <?php
 include_once '../../config.php'; checkLogin();
-?>
 
+
+?>
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 	<head>
@@ -173,7 +174,7 @@ include_once '../../config.php'; checkLogin();
 				<table>
 					<thead>
 						<tr>
-							<th><a class="button tiny" href="#">Add</a></th>
+							<th><a class="button tiny" href="manageEquipment.php?id=<?php echo $row->id; ?>">Add</a></th>
 							<th style="text-align: center">Equipment</th>
 							<th style="text-align: center">Amount</th>
 						</tr>

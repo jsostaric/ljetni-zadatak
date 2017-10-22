@@ -73,3 +73,4 @@ function calculateModifier($param) {
 		break;
 	}
 }
+
