@@ -34,7 +34,7 @@ include_once '../../config.php'; checkLogin();
 						
 						<tbody>
 							<?php  
-							$query = "select a.id, a.name, a.dm, a.synopsis, b.pc
+							$query = "select distinct b.pc, a.id, a.name, a.dm, a.synopsis
 									from adventure a 
 									left join player_adventure b on a.id = b.adventure
 									where dm = :id";
@@ -67,7 +67,7 @@ include_once '../../config.php'; checkLogin();
 					
 						<tbody>
 							<?php  
-							$query = "select a.name, a.id, b.pc
+							$query = "select a.name, a.id
 									from adventure a
 									inner join player_adventure b on a.id = b.adventure
 									where b.player = :id";

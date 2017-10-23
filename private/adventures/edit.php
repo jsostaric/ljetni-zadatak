@@ -113,7 +113,7 @@ if(isset($_POST["cancel"])) {
 											 ?>
 											 <tr id="row_<?php echo $row->id; ?>">
 											 	<td><?php echo $row->name; ?></td>
-											 	<td><a href="#" id="r_<?php echo $row->id; ?>">Remove</a></td>
+											 	<td><a class="remove" href="#" id="r_<?php echo $row->id; ?>">Remove</a></td>
 											 </tr>
 											 <?php endforeach; ?>
 										</tbody>
@@ -142,39 +142,75 @@ if(isset($_POST["cancel"])) {
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		
 		<script>
-			$("#cond").autocomplete({
-				source: "searchCharacter.php?adventure=<?php echo $_GET["id"]; ?>",
-				minLenght: 3,
-				focus: function(event, ui) {
-					event.preventDefault();
-				},
-			select: function(event, ui) {
-				$(this).val('').blur();
-				event.preventDefault();
-				intoDb(ui.item);
-			}
-			}).data("ui-autocomplete")._renderItem = function(ul, objekt) {
-				return $( "<li><img style=\"width: 50px\" src=\"https://vignette.wikia.nocookie.net/mafiagame/images/2/23/Unknown_Person.png/revision/latest?cb=20151119092211\" />" )
-			        .append("<a>" + objekt.name + "</a>")
-					.append(ul);
-			}
+			var pc;
 			
-			function intoDb(pc){
-				$.get("addCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + pc.id, 
-				function(returnServer){
-					if(returnServer == "OK") {
-						$("#adventurers").append("<tr id=\"row_" + pc.id + "\" style=\"display: none\">" + 
-						"<td>" + pc.name + "</td>" +
-						"<td><a id=\"r_" + pc.id + ">Remove</a></td></tr>");
+		    $( "#cond" ).autocomplete({
+			    source: "searchCharacter.php?adventure=<?php echo $_GET["id"] ?>",
+			    minLength: 3,
+			    focus: function( event, ui ) {
+			    	event.preventDefault();
+			    	},
+			    select: function(event, ui) {
+			        $(this).val('').blur();
+			        event.preventDefault();
+			        pc=ui.item;
+			    }
+				}).data( "ui-autocomplete" )._renderItem = function( ul, objekt ) {
+			      return $( "<li><img style=\"width: 50px\" src=\"https://vignette.wikia.nocookie.net/mafiagame/images/2/23/Unknown_Person.png/revision/latest?cb=20151119092211\" />" )
+			        .append( "<a>" + objekt.name + "</a>" )
+			        .appendTo( ul );
+		    }
+		    $("#intoDb").click(function(){
+		    	intoDb();
+		    	
+		    	return false;
+		    });
+		    
+		    
+		    
+		    function intoDb(){
+		    	console.log();
+		    	$.get( "addCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + pc.id + "&player=" + pc.player, 
+					function( returnDb ) {
+					if(returnDb=="ok"){
+						$("#adventurers").append("<tr id=\"row_" + pc.id + "\" >" + 
+						"<td>" + pc.name + "</td>" + 
+						"<td><a href=\"#\" class=\"remove\" id=\"r_" + pc.id + "\">Remove</a></td>" + 
+						"</tr>");
 						defineRemove();
-						$("#row_" + pc.id).fadeIn();
-					} else{
-						alert(returnServer);
+						//$("#row_" + pc).fadeIn();
+						
+					}else{
+						alert(returnDb);
 					}
 				});
-			}
-			
-			
+		    }
+		    
+		    function defineRemove(){
+		    	$(".remove").click(function(){
+		    	var element = $(this);
+				var id = element.attr("id").split("_")[1];
+				$.get( "removeCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + pc.id +"&player=" + pc.player, 
+					function( returnDb ) {
+					if(returnDb=="ok"){
+						var row = element.parent().parent();
+						$("#" + row.attr("id")).fadeOut();
+						//element.parent().parent().remove();
+					}else{
+						alert(vratioServer);
+					}
+				});
+		    	return false;
+		    	});
+		    }
+		    
+		    defineRemove();
+		    
+		    
+		    $( "#cond" ).focus(function() {
+  				$('html,body').animate({ scrollTop: 9999 }, 'slow');
+			});
+		    
 			
 			
 		</script>
