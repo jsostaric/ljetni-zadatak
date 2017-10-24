@@ -67,7 +67,7 @@ include_once '../../config.php'; checkLogin();
 					
 						<tbody>
 							<?php  
-							$query = "select a.name, a.id
+							$query = "select distinct a.name, a.id
 									from adventure a
 									inner join player_adventure b on a.id = b.adventure
 									where b.player = :id";

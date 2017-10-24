@@ -100,7 +100,7 @@ if(isset($_POST["cancel"])) {
 										<tbody id="adventurers">
 											<?php 
 											
-											$query 	= "select b.id, b.name, a.player
+											$query 	= "select a.pc, b.name, a.player
 														from player_adventure a
 														inner join pc b on b.id = a.pc
 														where a.adventure=" . $entity->id;
@@ -113,7 +113,7 @@ if(isset($_POST["cancel"])) {
 											 ?>
 											 <tr id="row_<?php echo $row->id; ?>">
 											 	<td><?php echo $row->name; ?></td>
-											 	<td><a class="remove" href="#" id="r_<?php echo $row->id; ?>">Remove</a></td>
+											 	<td><a class="remove" href="#" id="r_<?php echo $row->pc;?>_<?php echo $row->player; ?>">Remove</a></td>
 											 </tr>
 											 <?php endforeach; ?>
 										</tbody>
@@ -161,13 +161,7 @@ if(isset($_POST["cancel"])) {
 			        .append( "<a>" + objekt.name + "</a>" )
 			        .appendTo( ul );
 		    }
-		    /*
-		    $("#intoDb").click(function(){
-		    	intoDb();
-		    	
-		    	return false;
-		    });
-		    */
+		    
 		    
 		    
 		    function intoDb(){
@@ -191,15 +185,17 @@ if(isset($_POST["cancel"])) {
 		    function defineRemove(){
 		    	$(".remove").click(function(){
 		    	var element = $(this);
-				var id = element.attr("id").split("_")[1];
-				$.get( "removeCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + id +"&player=" + pc.player, 
+				var id = element.attr("id").split("_")[1][1];
+				$.get( "removeCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + id, 
 					function( returnDb ) {
 					if(returnDb=="ok"){
 						var row = element.parent().parent();
 						$("#" + row.attr("id")).fadeOut();
 						//element.parent().parent().remove();
+						console.log(id);
 					}else{
-						alert(vratioServer);
+						alert(returnDb);
+						console.log(id);
 					}
 				});
 		    	return false;

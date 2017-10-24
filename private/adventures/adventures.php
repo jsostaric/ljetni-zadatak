@@ -22,7 +22,6 @@
 								<th>Race</th>
 								<th>Class</th>
 								<th>Level</th>
-								<th></th>
 							</tr>
 						</thead>
 						
@@ -43,7 +42,6 @@
 								<td><?php echo $row->race; ?></td>
 								<td><?php echo $row->class; ?></td>
 								<td><?php echo $row->level; ?></td>
-								<td><a href="#">Remove</a></td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>	
