@@ -100,7 +100,7 @@ if(isset($_POST["cancel"])) {
 										<tbody id="adventurers">
 											<?php 
 											
-											$query 	= "select b.id, b.name
+											$query 	= "select b.id, b.name, a.player
 														from player_adventure a
 														inner join pc b on b.id = a.pc
 														where a.adventure=" . $entity->id;
@@ -154,18 +154,20 @@ if(isset($_POST["cancel"])) {
 			        $(this).val('').blur();
 			        event.preventDefault();
 			        pc=ui.item;
+			        intoDb();
 			    }
 				}).data( "ui-autocomplete" )._renderItem = function( ul, objekt ) {
 			      return $( "<li><img style=\"width: 50px\" src=\"https://vignette.wikia.nocookie.net/mafiagame/images/2/23/Unknown_Person.png/revision/latest?cb=20151119092211\" />" )
 			        .append( "<a>" + objekt.name + "</a>" )
 			        .appendTo( ul );
 		    }
+		    /*
 		    $("#intoDb").click(function(){
 		    	intoDb();
 		    	
 		    	return false;
 		    });
-		    
+		    */
 		    
 		    
 		    function intoDb(){
@@ -190,7 +192,7 @@ if(isset($_POST["cancel"])) {
 		    	$(".remove").click(function(){
 		    	var element = $(this);
 				var id = element.attr("id").split("_")[1];
-				$.get( "removeCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + pc.id +"&player=" + pc.player, 
+				$.get( "removeCharacter.php?adventure=<?php echo $_GET["id"] ?>&pc=" + id +"&player=" + pc.player, 
 					function( returnDb ) {
 					if(returnDb=="ok"){
 						var row = element.parent().parent();
