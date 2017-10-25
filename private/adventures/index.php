@@ -34,10 +34,10 @@ include_once '../../config.php'; checkLogin();
 						
 						<tbody>
 							<?php  
-							$query = "select distinct b.pc, a.id, a.name, a.dm, a.synopsis
+							$query = "select b.pc, a.id, a.name, a.dm, a.synopsis
 									from adventure a 
 									left join player_adventure b on a.id = b.adventure
-									where dm = :id";
+									where dm = :id group by a.name";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -70,7 +70,7 @@ include_once '../../config.php'; checkLogin();
 							$query = "select distinct a.name, a.id
 									from adventure a
 									inner join player_adventure b on a.id = b.adventure
-									where b.player = :id";
+									where b.player = :id group by a.name";
 							$stmt = $conn->prepare($query);
 							$stmt->execute(array("id"=> $_SESSION["session"]->id));
 							$result = $stmt->fetchAll(PDO::FETCH_OBJ);

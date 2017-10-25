@@ -48,7 +48,7 @@ include_once '../../config.php'; checkLogin();
 						
 						<tr>
 								<th>Characters:</th>
-								<td><?php $query = "select count(b.pc)
+								<td><?php $query = "select  count(distinct b.pc)
 											from player a
 											inner join player_adventure b on a.id = b.player
 											where a.id = :id;";
@@ -60,7 +60,7 @@ include_once '../../config.php'; checkLogin();
 						
 						<tr>
 								<th>Adventures:</th>
-								<td><?php $query = "select count(a.id)
+								<td><?php $query = "select count(distinct a.id)
 													from adventure a
 													inner join player b on b.id = a.dm
 													where a.dm = :id;";
