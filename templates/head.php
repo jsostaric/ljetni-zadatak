@@ -11,5 +11,6 @@
 <!-- favicon -->
 <link rel="icon" href="<?php echo $route; ?>img/favicon.ico" type="image/x-icon">
 
+<!-- bootstrap -->
 <link rel="stylesheet" href="<?php echo $route; ?>css/foundation.css">
 <link rel="stylesheet" href="<?php echo $route; ?>css/app.css">

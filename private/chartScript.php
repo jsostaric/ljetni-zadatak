@@ -27,7 +27,7 @@
     },
     
     <?php 
-    	$query="select count(a.id) as numOfAdventures, count(c.id) as numOfCharacters
+    	$query="select count(a.id) as numOfAdventures, count(distinct c.id) as numOfCharacters
     			from adventure a
     			inner join player_adventure b on a.id=b.adventure
     			inner join pc c on c.id=b.pc";

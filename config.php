@@ -11,14 +11,14 @@ if($_SERVER["HTTP_HOST"] == "localhost") {
 	$route = "/ljetni-zadatak/";
 	$mysqlHost="localhost";
 	$mysqlDB="dndapp";
-	$mysqlUser="edunova";
-	$mysqlPass="edunova";
-} else if($_SERVER["HTTP_HOST"] == "jsostaric.byethost7.com") {
-	$route = "/ljetniZadatak/";
-	$mysqlHost="sql306.byethost7.com";
-	$mysqlDB="b7_20129419_dnd";
-	$mysqlUser="b7_20129419";
+	$mysqlUser="jurica";
 	$mysqlPass="Jura10os";
+} else if($_SERVER["HTTP_HOST"] == "jsostaric.byethost32.com") {
+	$route = "/ljetni-zadatak/";
+	$mysqlHost="sql212.byethost.com";
+	$mysqlDB="nova baza";
+	$mysqlUser="b32_23293043";
+	$mysqlPass="jurica";
 } else {
 	$route = "/";
 }
