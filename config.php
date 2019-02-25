@@ -11,8 +11,8 @@ if($_SERVER["HTTP_HOST"] == "localhost") {
 	$route = "/ljetni-zadatak/";
 	$mysqlHost="localhost";
 	$mysqlDB="dndapp";
-	$mysqlUser="jurica";
-	$mysqlPass="Jura10os";
+	$mysqlUser="root";
+	$mysqlPass="";
 } else if($_SERVER["HTTP_HOST"] == "jsostaric.byethost32.com") {
 	$route = "/ljetni-zadatak/";
 	$mysqlHost="sql212.byethost.com";
